@@ -1,0 +1,137 @@
+import pandas as pd
+
+def generate_transaction_id(transactions):
+
+    if not transactions:
+        return 1
+
+    if transactions:
+        highest_id = max(transaction["id"] for transaction in transactions)
+        transaction_id = highest_id + 1
+        return transaction_id
+
+
+    
+
+def add_income(transactions):
+    try:
+        amount = float(input("Enter  amount: "))
+    except ValueError:
+         print("Invalid amount. Please enter a number.")
+    category = input("Category: ")
+    description = input("Description: ")
+
+    transaction = {
+        "id": generate_transaction_id(transactions),
+        "type": "income",
+        "amount": amount,
+        "category": category,
+        "description": description
+    }
+
+    transactions.append(transaction)
+
+    print("Transaction added succesfully!")
+
+
+
+def add_expense(transactions):
+    try:
+        amount = float(input("Enter amount: "))
+    except ValueError:
+         print("Invalid amount. Please enter a number.")
+    category = input("Category: ")
+    description = input("Description: ")
+
+    transaction = {
+        "id": generate_transaction_id(transactions),
+        "type": "expense",
+        "amount": amount,
+        "category": category,
+        "description": description
+    }
+
+    transactions.append(transaction)
+
+    print("Transaction added succesfully!")
+
+def view_transactions(transactions):
+    if not transactions:
+        print("No transactions found.")
+        return
+
+    df = pd.DataFrame(transactions)
+    df["id"] = df["id"].apply(lambda x: f"{x:08d}")
+    print(df.to_string(index=False))
+
+def update_transactions(transactions):
+    try:
+        transaction_id = int(input("Enter transaction ID to update: "))
+    except ValueError:
+        print("Invalid transaction ID.")
+        return
+
+    found = False
+
+    for transaction in transactions:
+        if transaction["id"] == transaction_id:
+
+            found = True
+
+            print("===== Update =====")
+            print("1. Amount ")
+            print("2. Category")
+            print("3. Description")
+
+            try:
+                choice = int(input("Choose an option: "))
+                if 1 <= choice <= 3 :
+                    if choice == 1:
+                        while True:
+                            try:
+                                amount = float(input("Enter new amount: "))
+                                transaction["amount"] = amount
+                                break
+                            except ValueError:
+                                print("Invalid amount. Please enter a number.")
+                        
+                    elif choice == 2:
+                        category = input("Enter new category")
+                        transaction["category"] = category
+                        
+                    elif choice == 3:
+                        description = input("Enter new description")
+                        transaction["description"] = description
+                    
+                    print("Transaction updated successfully!")
+                    return
+
+                else:
+                    print("Please enter a number between 1 and 3.")
+
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+    if not found:
+        print("No transactions found with matching ID")
+
+        
+
+def delete_transactions(transactions):
+    try:
+        transaction_id = int(input("Enter transaction ID to delete: "))
+    except ValueError:
+        print("Invalid transaction ID.")
+        return
+
+    found = False
+
+    for transaction in transactions:
+        if transaction["id"] == transaction_id:
+
+            found = True
+            transactions.remove(transaction)
+            print("Transaction deleted successfully!")
+            return
+
+    if not found:
+        print("No transactions found with matching ID")
