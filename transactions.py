@@ -1,4 +1,6 @@
 import pandas as pd
+from utils import get_current_date
+
 
 def generate_transaction_id(transactions):
 
@@ -24,6 +26,7 @@ def add_income(transactions):
     transaction = {
         "id": generate_transaction_id(transactions),
         "type": "income",
+        "date": get_time_of_day(),
         "amount": amount,
         "category": category,
         "description": description
@@ -46,6 +49,7 @@ def add_expense(transactions):
     transaction = {
         "id": generate_transaction_id(transactions),
         "type": "expense",
+        "date": get_time_of_day(),
         "amount": amount,
         "category": category,
         "description": description
@@ -62,6 +66,20 @@ def view_transactions(transactions):
 
     df = pd.DataFrame(transactions)
     df["id"] = df["id"].apply(lambda x: f"{x:08d}")
+    df["amount"] = df["amount"].apply(lambda x: f"${x:.2f}")
+    
+    df = df.rename(columns=[
+        [
+            "ID",
+            "Date",
+            "Type",
+            "Category",
+            "Amount",
+            "Description"
+        ]
+    ])
+
+    pd.set_option("display.colheader_justify", "left")
     print(df.to_string(index=False))
 
 def update_transactions(transactions):
@@ -128,10 +146,25 @@ def delete_transactions(transactions):
     for transaction in transactions:
         if transaction["id"] == transaction_id:
 
+            print("Transaction found.")
+            print(f"ID: {transaction['id']}")
+            print("Type: " + transaction['type'])
+            print(f"Amount: {transaction['amount']}")
+            print("Category: " + transaction['category'])
+            print("Description: " + transaction['description'])
+
             found = True
-            transactions.remove(transaction)
-            print("Transaction deleted successfully!")
-            return
+            print("Delete Transaction? ")
+            delete = input("(Y/N): ")
+            if delete.lower() == "y":
+                transactions.remove(transaction)
+                print("Transaction deleted successfully!")
+                return
+            elif delete.lower() == "n":
+                print("Deletion cancelled.")
+                return
+            else:
+                print("Please enter Y or N.")
 
     if not found:
         print("No transactions found with matching ID")

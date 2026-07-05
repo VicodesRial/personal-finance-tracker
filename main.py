@@ -2,7 +2,7 @@ from menu import show_menu
 from transactions import add_expense, add_income, view_transactions, update_transactions, delete_transactions
 from reports import calculate_balance, monthly_summary, search_category
 from utils import clear_console, pause
-from storage import load_transactions, save_transactions
+from storage import load_transactions, save_transactions, export_to_csv, import_csv
 
 transactions = load_transactions()
 
@@ -40,6 +40,16 @@ while True:
         monthly_summary(transactions)
         pause()
     elif choice ==9:
+        export_to_csv(transactions)
+        pause()
+    elif choice ==10:
+        imported_transactions = import_csv()
+
+        if imported_transactions is not None:
+            transactions = imported_transactions
+
+        pause()  
+    elif choice ==11:
         print("")
         print("====================================")
         print("")
