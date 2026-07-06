@@ -6,26 +6,33 @@ A command-line Personal Finance Tracker built with Python that allows users to r
 
 ## Features
 
-Add income
-Add expenses
-View all transactions
-Update existing transactions
-Delete transactions
-Search transactions by category
-View balance summary
-View monthly/category summaries
-Automatic unique transaction IDs
-Persistent storage with JSON
+- Add income
+- Add expenses
+- View all transactions
+- Update existing transactions
+- Delete transactions
+- Search transactions by category
+- View balance summary
+- View monthly/category summaries
+- View transaction statistics
+- Sort transactions
+- Export transactions to CSV
+- Import transactions from CSV
+- Automatic transaction dates
+- Automatic unique transaction IDs
+- Persistent storage with JSON
+- Formatted transaction tables using Pandas
 
 ---
 
 ## Technologies Used
 
 - Python 3
-- JSON
 - Pandas
-
----
+- JSON
+- CSV
+- Git
+- GitHub
 
 ## Concepts Practiced
 
@@ -36,8 +43,13 @@ Persistent storage with JSON
 - Modular Programming
 - File Handling
 - JSON Serialization
+- CSV Import/Export
 - Exception Handling
 - Data Processing with Pandas
+- List Comprehensions
+- Generator Expressions
+- Sorting with `sorted()`
+- Lambda Functions
 
 ---
 
@@ -46,17 +58,41 @@ Persistent storage with JSON
 ```
 finance_tracker/
 │
-├── main.py          # Controls the application
-├── menu.py          # Menu interface
-├── transactions.py  # CRUD operations
-├── reports.py       # Financial reports
-├── storage.py       # JSON save/load
-├── utils.py         # Helper functions
-└── transactions.json
+├── data/
+│   ├── transactions.json
+│   └── output.csv
+│
+├── main.py
+├── menu.py
+├── reports.py
+├── storage.py
+├── transactions.py
+├── utils.py
+├── README.md
+└── requirements.txt
 ```
 
 ---
+## Example menu
 
+
+===== Personal Finance Tracker =====
+
+1. Add Income
+2. Add Expense
+3. View Transactions
+4. Update Transaction
+5. Delete Transaction
+6. View Balance
+7. Search by Category
+8. Monthly Summary
+9. Export to CSV
+10. Import from CSV
+11. Sort Transactions
+12. Statistics
+13. Exit
+
+---
 ## Example Transaction
 
 ```json
@@ -101,17 +137,15 @@ python main.py
 
 ## Future Improvements
 
-- Add transaction dates
-- Export reports to CSV
-- Sort transactions
 - Budget tracking
-- Graphs and charts
+- Search by date range
 - SQLite database support
-- GUI version using Tkinter
-- Web version using Flask or FastAPI
+- Charts and graphs
+- GUI version with Tkinter
+- Web version with Flask or FastAPI
 
 ---
 
 ## Author
 
-Vicode 7
+VicodesRial

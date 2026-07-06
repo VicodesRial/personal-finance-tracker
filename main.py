@@ -1,6 +1,6 @@
 from menu import show_menu
-from transactions import add_expense, add_income, view_transactions, update_transactions, delete_transactions
-from reports import calculate_balance, monthly_summary, search_category
+from transactions import add_expense, add_income, view_transactions, update_transactions, delete_transactions, sort_transactions
+from reports import calculate_balance, monthly_summary, search_category, statistics
 from utils import clear_console, pause
 from storage import load_transactions, save_transactions, export_to_csv, import_csv
 
@@ -49,7 +49,12 @@ while True:
             transactions = imported_transactions
 
         pause()  
-    elif choice ==11:
+    elif choice == 11:
+        transactions = sort_transactions(transactions)
+        pause()
+    elif choice == 12:
+        pass
+    elif choice ==13:
         print("")
         print("====================================")
         print("")

@@ -1,3 +1,4 @@
+from collections import Counter 
 def calculate_balance(transactions):
 
     if not transactions:
@@ -55,9 +56,9 @@ def monthly_summary(transactions):
         print(f"Income : ${income:.2f}")
         print(f"Expense: ${expense:.2f}")
         print("-" * 30)
-    
 
 def search_category(transactions):
+
     category = input("Search category: ")
 
     total = 0
@@ -89,3 +90,34 @@ def search_category(transactions):
         print(f"Total money from {category}: ${total:.2f}")
     else:
         print("No transactions found with that category.")
+
+def statistics(transactions):
+    print("========== Statistics ==========")
+    print(f"Transactions: {len(transactions)}")
+
+    total_income = sum(transaction["amount"] for transaction in transactions if transaction["type"] == "income")
+    total_expense = sum(transaction["amount"] for transaction in transactions if transaction["type"] == "expense")
+
+    print(f"Total Income: {total_income}")
+    print(f"Total Expense: {total_expense}")
+
+    max_income = max(transaction["amount"] for transaction in transactions if transaction["type"] == "income")
+    max_expense = max(transaction["amount"] for transaction in transactions if transaction["type"] == "expense")
+
+    print(f"Highest Income: {max_income}")
+    print(f"Highest Expense: {max_expense}")
+
+    average_income = total_income / len([transaction for transaction in transactions if transaction["type"] == "income"])
+    average_expense = total_expense / len([transaction for transaction in transactions if transaction["type"] == "expense"])
+    print(f"Average Income: {average_income}")
+    print(f"Average Expense: {average_expense}")
+
+    categories = [transaction["category"] for transaction in transactions]
+    unique = set(categories)
+    counts = {}
+    for category in unique:
+        counts[category] = categories.count(category)
+    most_used_category = max(counts, key=counts.get)
+
+    print(f"Most used category: {most_used_category}")
+    

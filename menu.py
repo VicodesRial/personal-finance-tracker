@@ -10,16 +10,18 @@ def show_menu():
     print("8. Monthly Summary")
     print("9. Export to csv")
     print("10. Import csv")
-    print("11. Exit")
+    print("11. Sort Transactions")
+    print("12. Statistics")
+    print("13. Exit.")
 
 
 
     try:
         choice = int(input("Choose an option: "))
-        if 1 <= choice <= 11 :
+        if 1 <= choice <= 13 :
             return choice
         else:
-            print("Please enter a number between 1 and 11.")
+            print("Please enter a number between 1 and 13.")
 
     except ValueError:
         print("Invalid input. Please enter a number.")
